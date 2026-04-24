@@ -1,23 +1,17 @@
-import logo from './logo.svg';
-import './App.css';
-
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ textAlign: "center", marginTop: "50px", fontFamily: "Arial" }}>
+      <h1>🚀 DevOps Deployment Dashboard</h1>
+      <p>React App deployed on AWS EC2 with CI/CD Pipeline</p>
+
+      <div style={{ marginTop: "30px" }}>
+        <button style={{ padding: "10px 20px", marginRight: "10px" }}>
+          Check Deployment
+        </button>
+        <button style={{ padding: "10px 20px" }}>
+          View Logs
+        </button>
+      </div>
     </div>
   );
 }
