@@ -1,4 +1,4 @@
-name: Deploy React App to EC2
+name: React App Deployment
 
 on:
   push:
@@ -10,17 +10,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Deploy to EC2 Server
+      - name: Deploy to EC2
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
+
           script: |
+
+            TIMESTAMP=$(date +%Y%m%d%H%M%S)
+
             cd /var/www/projects/devops-react-aws-project
+
             git pull origin main
+
             npm install
+
             npm run build
+
+            sudo mkdir -p /var/www/react-app/releases/$TIMESTAMP
+
+            sudo cp -r build/* /var/www/react-app/releases/$TIMESTAMP/
+
+            sudo ln -sfn /var/www/react-app/releases/$TIMESTAMP /var/www/react-app/current
+
+            sudo systemctl restart httpd
